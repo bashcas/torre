@@ -34,11 +34,11 @@ body {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  font-family: "Inter", sans-serif;
   color: var(--on-secondary);
   margin-top: 60px;
 }
