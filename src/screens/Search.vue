@@ -2,6 +2,6 @@
 
 <script>
 export default {
-  name: "SkillDetail",
+  name: "Search",
 }
 </script>

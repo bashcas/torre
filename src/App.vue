@@ -7,8 +7,7 @@ import Profile from "./screens/Profile.vue"
 
 <template>
   <Container maxWidth="1440">
-    <Profile />
-    <!-- <div>hjolaalalal</div> -->
+    <router-view></router-view>
   </Container>
 </template>
 

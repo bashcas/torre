@@ -73,17 +73,15 @@ a {
 </style>
 
 <script>
-import axios from "axios"
+import { useRoute } from "vue-router"
 import Skill from "../components/Skill.vue"
 import ProfilePicture from "../components/ProfilePicture.vue"
-
-const cors_proxy = "https://torre-proxy.vercel.app"
+import { getUserByUsername } from "../api"
 
 export default {
   name: "Profile",
   data() {
     return {
-      url: `${cors_proxy}/?url=https://bio.torre.co/api/bios/scastanedag`,
       user: {
         person: {
           name: "",
@@ -101,15 +99,14 @@ export default {
   },
 
   created() {
-    this.getUser()
-  },
-
-  methods: {
-    async getUser() {
-      const response = await axios.get(this.url, {})
-      this.user = response.data
-      // this.user = response.data.person.name
-    },
+    const route = useRoute()
+    getUserByUsername(route.params.username)
+      .then((user) => {
+        this.user = user
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
 
   computed: {
