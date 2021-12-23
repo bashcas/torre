@@ -13,7 +13,7 @@ async function searchPeople(payload, cancelToken) {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint
   const response = await axios.post(url, payload, {
-    cancelToken: cancelToken.token,
+    cancelToken: cancelToken?.token,
   })
   return response.data
 }
@@ -32,4 +32,18 @@ async function getPreviousPage(token) {
   return response.data
 }
 
-export { getUserByUsername, searchPeople, getNextPage, getPreviousPage }
+async function getSkillDetail(user, skill) {
+  const api_endpoint = `https://torre.co/api/genome/bios/${user}/strengths-skills/${skill}/detail`
+  const url = cors_proxy + "?url=" + api_endpoint
+  const response = await axios.get(url)
+  console.log(response)
+  return response.data
+}
+
+export {
+  getUserByUsername,
+  searchPeople,
+  getNextPage,
+  getPreviousPage,
+  getSkillDetail,
+}

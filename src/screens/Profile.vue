@@ -23,7 +23,11 @@
         </div>
         <ul>
           <li v-for="skill in expertStrengths" :key="skill.id">
-            <Skill :skill="skill.name" />
+            <Skill
+              :skill="skill.name"
+              :username="user.person.username"
+              :id="skill.id"
+            />
           </li>
         </ul>
       </div>
@@ -35,7 +39,11 @@
         </div>
         <ul>
           <li v-for="skill in proficientStrengths" :key="skill.id">
-            <Skill :skill="skill.name" />
+            <Skill
+              :skill="skill.name"
+              :username="user.person.username"
+              :id="skill.id"
+            />
           </li>
         </ul>
       </div>
@@ -47,7 +55,11 @@
         </div>
         <ul>
           <li v-for="skill in noviceStrengths" :key="skill.id">
-            <Skill :skill="skill.name" />
+            <Skill
+              :skill="skill.name"
+              :username="user.person.username"
+              :id="skill.id"
+            />
           </li>
         </ul>
       </div>
@@ -64,7 +76,11 @@
             v-for="skill in noExperienceButInterestedStrengths"
             :key="skill.id"
           >
-            <Skill :skill="skill.name" />
+            <Skill
+              :skill="skill.name"
+              :username="user.person.username"
+              :id="skill.id"
+            />
           </li>
         </ul>
       </div>
@@ -93,6 +109,7 @@ export default {
       user: {
         person: {
           name: "",
+          username: "",
           picture: "",
           summaryOfBio: "",
         },
@@ -115,6 +132,7 @@ export default {
     getUserByUsername(route.params.username)
       .then((user) => {
         this.user = user
+        this.user.person.username = route.params.username
         this.loading = false
       })
       .catch((error) => {

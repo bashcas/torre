@@ -15,7 +15,7 @@ const routes = [
     name: "Profile",
   },
   {
-    path: "/skill/:id",
+    path: "/skill/:username/:id",
     component: SkillDetail,
     name: "SkillDetail",
   },

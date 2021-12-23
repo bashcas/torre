@@ -26,6 +26,7 @@ html {
   --secondary-color: #383b40;
   --secondary-color-light: #ffffff8a;
   --on-secondary: hsla(0, 0%, 100%, 0.9);
+  --on-secondary-light: #ffffff99;
   --bg-color: #27292d;
 }
 
@@ -40,6 +41,8 @@ body {
   font-size: 1.6rem;
   font-family: "Inter", sans-serif;
   color: var(--on-secondary);
-  margin-top: 60px;
+}
+li {
+  list-style: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="goToDetail">
     <span>{{ skill }}</span>
   </div>
 </template>
@@ -11,6 +11,26 @@ export default {
     skill: {
       type: String,
       required: true,
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+  },
+
+  methods: {
+    goToDetail() {
+      this.$router.push({
+        name: "SkillDetail",
+        params: {
+          username: this.username,
+          id: this.id,
+        },
+      })
     },
   },
 }

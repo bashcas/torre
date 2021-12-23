@@ -26,6 +26,7 @@ button {
   cursor: pointer;
   display: block;
   color: var(--primary-color);
+  display: flex;
 }
 button:hover {
   background-color: var(--secondary-color);

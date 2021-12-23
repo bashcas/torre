@@ -22,11 +22,9 @@
         </div>
         <div v-else>
           <ul class="user-list">
-            <UserResult
-              v-for="user in results"
-              :key="user.username"
-              :user="user"
-            />
+            <li v-for="user in results" :key="user.username">
+              <UserResult :user="user" />
+            </li>
           </ul>
         </div>
       </div>
