@@ -144,12 +144,8 @@ export default {
                 proficiency: this.skill.stats.proficiency,
               },
               language: {
-                term: this.user.languages[0]
-                  ? this.user.languages[0].language
-                  : "English",
-                fluency: this.user.languages[0]
-                  ? this.user.languages[0].fluency
-                  : "conversational",
+                term: "English",
+                fluency: "conversational",
               },
             },
           ],

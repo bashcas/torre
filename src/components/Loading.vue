@@ -1,5 +1,10 @@
 <template>
-  <div class="spinner" :style="`width: ${size}px; height: ${size}px`"></div>
+  <div class="spinner" :style="`width: ${size}px; height: ${size}px`">
+    <div :style="`width: ${0.8 * size}px; height: ${0.8 * size}px`"></div>
+    <div :style="`width: ${0.8 * size}px; height: ${0.8 * size}px`">></div>
+    <div :style="`width: ${0.8 * size}px; height: ${0.8 * size}px`">></div>
+    <div :style="`width: ${0.8 * size}px; height: ${0.8 * size}px`">></div>
+  </div>
 </template>
 
 <script>
@@ -16,14 +21,32 @@ export default {
 
 <style scoped>
 .spinner {
-  border: 5px solid var(--secondary-color);
-  border-top: 5px solid var(--primary-color);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
-
+.spinner div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--primary-color) transparent transparent transparent;
+}
+.spinner div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.spinner div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.spinner div:nth-child(3) {
+  animation-delay: -0.15s;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

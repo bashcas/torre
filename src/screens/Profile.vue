@@ -10,13 +10,18 @@
       <ProfilePicture :img="user.person.picture" class="profile__picture" />
       <div class="profile__info">
         <h2 class="profile__name">{{ user.person.name }}</h2>
+        <p class="profile__headline">{{ user.person.professionalHeadline }}</p>
+        <p class="profile__location">{{ user.person.location.name }}</p>
         <p class="profile__bio">{{ user.person.summaryOfBio }}</p>
       </div>
     </div>
-    <h3 class="profile__skills-title">Skills and interests</h3>
+    <h3 v-if="user.strengths.length > 0" class="profile__skills-title">
+      Skills and interests
+    </h3>
+    <h3 v-else class="profile__skills-title">No skills to show</h3>
 
     <div class="profile__skills">
-      <div class="profile__skills-container">
+      <div class="profile__skills-container" v-if="expertStrengths.length > 0">
         <div class="profile__skills-category">
           <span class="material-icons">directions_bike</span>
           <h4 class="profile__skills-category-title">Master / Influencer</h4>
@@ -32,7 +37,10 @@
         </ul>
       </div>
 
-      <div class="profile__skills-container">
+      <div
+        class="profile__skills-container"
+        v-if="proficientStrengths.length > 0"
+      >
         <div class="profile__skills-category">
           <span class="material-icons">directions_run</span>
           <h4 class="profile__skills-category-title">Proficient</h4>
@@ -48,7 +56,7 @@
         </ul>
       </div>
 
-      <div class="profile__skills-container">
+      <div class="profile__skills-container" v-if="noviceStrengths.length > 0">
         <div class="profile__skills-category">
           <span class="material-icons">directions_walk</span>
           <h4 class="profile__skills-category-title">Novice</h4>
@@ -64,7 +72,10 @@
         </ul>
       </div>
 
-      <div class="profile__skills-container">
+      <div
+        class="profile__skills-container"
+        v-if="noExperienceButInterestedStrengths.length > 0"
+      >
         <div class="profile__skills-category">
           <span class="material-icons">nordic_walking</span>
           <h4 class="profile__skills-category-title">
@@ -112,7 +123,12 @@ export default {
           username: "",
           picture: "",
           summaryOfBio: "",
+          professionalHeadline: "",
+          location: {
+            name: "",
+          },
         },
+
         strengths: [],
       },
       loading: false,
@@ -193,8 +209,20 @@ ul {
   margin-top: 16px;
 }
 
+.profile__headline {
+  font-size: 1.8rem;
+  margin-top: 8px;
+  color: var(--on-secondary-light);
+}
+
+.profile__location {
+  font-size: 1.4rem;
+  margin-top: 8px;
+  color: var(--on-secondary-light);
+}
+
 .profile__bio {
-  margin-top: 16px;
+  margin-top: 1.6rem;
   color: var(--on-secondary-light);
 }
 

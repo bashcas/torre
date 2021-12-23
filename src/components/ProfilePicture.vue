@@ -1,14 +1,9 @@
 <template>
   <div
     v-if="img"
-    class="hexagon"
     :style="`background-image: url(${img}); width: ${size}px; height: ${size}px`"
   ></div>
-  <div
-    v-else
-    class="hexagon"
-    :style="`width: ${size}px; height: ${size}px`"
-  ></div>
+  <div v-else :style="`width: ${size}px; height: ${size}px`"></div>
 </template>
 
 <script>
@@ -28,11 +23,13 @@ export default {
 </script>
 
 <style scoped>
-div.hexagon {
+div {
   width: 300px;
   height: 300px;
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
   background-image: url("../assets/images/default_user.jpg");
+  border-radius: 50%;
+  border: 3px solid var(--secondary-color-light);
+  outline: 1px solid var(--secondary-color-light);
   background-position: center;
   background-size: contain;
 }

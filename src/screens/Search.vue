@@ -33,6 +33,9 @@
       <Button @click="goToPreviousPage"
         ><span class="material-icons">arrow_back</span></Button
       >
+      <p class="page-number">
+        {{ offset + 1 }} - {{ offset + size }} of around {{ total }}
+      </p>
       <Button @click="goToNextPage"
         ><span class="material-icons">arrow_forward</span></Button
       >
@@ -69,6 +72,9 @@ export default {
       //Cancel token is required as we are making multiple requests and this can lead to inconsistent results
       cancelToken: undefined,
       search: "",
+      offset: 0,
+      total: 0,
+      size: 10,
     }
   },
 
@@ -94,7 +100,10 @@ export default {
         this.updatePagination(
           data.results,
           data.pagination.previous,
-          data.pagination.next
+          data.pagination.next,
+          data.offset,
+          data.size,
+          data.total
         )
         this.loading = false
         this.error = false
@@ -121,7 +130,10 @@ export default {
         this.updatePagination(
           data.results,
           data.pagination.previous,
-          data.pagination.next
+          data.pagination.next,
+          data.offset,
+          data.size,
+          data.total
         )
         this.loading = false
         this.error = false
@@ -148,7 +160,10 @@ export default {
         this.updatePagination(
           data.results,
           data.pagination.previous,
-          data.pagination.next
+          data.pagination.next,
+          data.offset,
+          data.size,
+          data.total
         )
         this.loading = false
         this.error = false
@@ -158,10 +173,13 @@ export default {
       }
     },
 
-    updatePagination(results, previousPage, nextPage) {
+    updatePagination(results, previousPage, nextPage, offset, size, total) {
       this.results = results
       this.previousPage = previousPage
       this.nextPage = nextPage
+      this.offset = offset
+      this.size = size
+      this.total = total
     },
   },
 }
@@ -193,5 +211,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+}
+
+.page-number {
+  color: var(--secondary-color-light);
+  font-size: 1.4rem;
 }
 </style>
