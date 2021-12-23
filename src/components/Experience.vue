@@ -1,9 +1,9 @@
 <template>
   <div>
     <h4>{{ experience.name }}</h4>
-    <h5>{{ experience.organizations[0].name }}</h5>
+    <h5>{{ experience.organizations[0]?.name }}</h5>
     <h6>
-      {{ experience.fromMonth }} {{ experience.fromYear }}
+      {{ experienc.fromMonth }} {{ experience.fromYear }}
       {{
         experience.toMonth
           ? "- " + experience.toMonth + " " + experience.toYear
