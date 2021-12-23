@@ -54,11 +54,10 @@
     <hr class="division" />
     <section
       class="related-experiences"
-      v-if="skill.relatedExperiences.lenght > 0"
+      v-if="skill.relatedExperiences.length > 0"
     >
       <h3>{{ user.person.name }}'s related experiences:</h3>
-
-      <ul>
+      <ul class="experience-list">
         <li v-for="experience in skill.relatedExperiences" :key="experience.id">
           <Experience :experience="experience" />
         </li>
@@ -128,9 +127,8 @@ export default {
       const { username, id } = route.params
       this.username = username
       const data = await getSkillDetail(username, id)
-      console.log(data)
       this.skill = data
-      console.log(this.skill)
+      console.log(data.relatedExperiences)
     },
     async getUser() {
       const user = await getUserByUsername(this.username)
@@ -147,8 +145,12 @@ export default {
                 proficiency: this.skill.stats.proficiency,
               },
               language: {
-                term: this.user.languages[0].language,
-                fluency: this.user.languages[0].fluency,
+                term: this.user.languages[0]
+                  ? this.user.languages[0].language
+                  : "English",
+                fluency: this.user.languages[0]
+                  ? this.user.languages[0].fluency
+                  : "conversational",
               },
             },
           ],
@@ -156,7 +158,6 @@ export default {
         null
       )
       this.otherPeople = otherPeople.results.slice(0, 3)
-      // this.otherPeople = otherPeople
     },
 
     async getData() {
@@ -171,8 +172,10 @@ export default {
 </script>
 <style scoped>
 .loading-container {
-  display: grid;
-  place-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .header {
   display: flex;
@@ -218,6 +221,13 @@ h3 {
 .division {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.experience-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .user-list {

@@ -167,8 +167,10 @@ export default {
 
 <style scoped>
 .loading-container {
-  display: grid;
-  place-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 ul {
