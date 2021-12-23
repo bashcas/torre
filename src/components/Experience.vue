@@ -3,7 +3,7 @@
     <h4>{{ experience.name }}</h4>
     <h5>{{ experience.organizations[0]?.name }}</h5>
     <h6>
-      {{ experienc.fromMonth }} {{ experience.fromYear }}
+      {{ experience.fromMonth }} {{ experience.fromYear }}
       {{
         experience.toMonth
           ? "- " + experience.toMonth + " " + experience.toYear
