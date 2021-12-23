@@ -3,7 +3,9 @@
     <Loading :size="250" />
   </div>
   <div class="profile" v-else>
-    <Button @click="this.$router.back()"> Go back </Button>
+    <Button @click="this.$router.back()">
+      <span class="material-icons">arrow_back</span>
+    </Button>
     <div class="profile__header">
       <ProfilePicture :img="user.person.picture" class="profile__picture" />
       <div class="profile__info">

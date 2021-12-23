@@ -18,4 +18,18 @@ async function searchPeople(payload, cancelToken) {
   return response.data
 }
 
-export { getUserByUsername, searchPeople }
+async function getNextPage(token) {
+  const api_endpoint = "https://search.torre.co/people/_search/"
+  const url = cors_proxy + "?url=" + api_endpoint + "?after=" + token
+  const response = await axios.post(url)
+  return response.data
+}
+
+async function getPreviousPage(token) {
+  const api_endpoint = "https://search.torre.co/people/_search/"
+  const url = cors_proxy + "?url=" + api_endpoint + "?before=" + token
+  const response = await axios.post(url)
+  return response.data
+}
+
+export { getUserByUsername, searchPeople, getNextPage, getPreviousPage }

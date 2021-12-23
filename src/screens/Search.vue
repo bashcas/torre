@@ -31,6 +31,14 @@
         </div>
       </div>
     </div>
+    <div class="controls" v-if="results.length > 0 && !loading">
+      <Button @click="goToPreviousPage"
+        ><span class="material-icons">arrow_back</span></Button
+      >
+      <Button @click="goToNextPage"
+        ><span class="material-icons">arrow_forward</span></Button
+      >
+    </div>
   </div>
 </template>
 
@@ -39,7 +47,8 @@ import EditText from "../components/EditText.vue"
 import Loading from "../components/Loading.vue"
 import ErrorMessage from "../components/ErrorMessage.vue"
 import UserResult from "../components/UserResult.vue"
-import { searchPeople } from "../api"
+import Button from "../components/Button.vue"
+import { searchPeople, getNextPage, getPreviousPage } from "../api"
 import axios from "axios"
 
 export default {
@@ -49,6 +58,7 @@ export default {
     Loading,
     ErrorMessage,
     UserResult,
+    Button,
   },
 
   data() {
@@ -82,15 +92,68 @@ export default {
       try {
         this.loading = true
         const data = await searchPeople(payload, this.cancelToken)
-        this.results = data.results
-        this.previousPage = data.pagination.previous
-        this.nextPage = data.pagination.next
+        this.updatePagination(
+          data.results,
+          data.pagination.previous,
+          data.pagination.next
+        )
         this.loading = false
         this.error = false
       } catch (error) {
         this.error = true
         console.log(error)
       }
+    },
+
+    async goToNextPage() {
+      console.log("Next page")
+      if (!this.nextPage) {
+        console.log("No next page")
+        return
+      }
+
+      try {
+        this.loading = true
+        const data = await getNextPage(this.nextPage)
+        this.updatePagination(
+          data.results,
+          data.pagination.previous,
+          data.pagination.next
+        )
+        this.loading = false
+        this.error = false
+      } catch (error) {
+        this.error = true
+        console.log(error)
+      }
+    },
+
+    async goToPreviousPage() {
+      console.log("Previous page")
+      if (!this.previousPage) {
+        console.log("No previous page")
+        return
+      }
+      try {
+        this.loading = true
+        const data = await getPreviousPage(this.previousPage)
+        this.updatePagination(
+          data.results,
+          data.pagination.previous,
+          data.pagination.next
+        )
+        this.loading = false
+        this.error = false
+      } catch (error) {
+        this.error = true
+        console.log(error)
+      }
+    },
+
+    updatePagination(results, previousPage, nextPage) {
+      this.results = results
+      this.previousPage = previousPage
+      this.nextPage = nextPage
     },
   },
 }
@@ -115,5 +178,12 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
 </style>
