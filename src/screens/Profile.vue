@@ -9,7 +9,13 @@
     <div class="profile__header">
       <ProfilePicture :img="user.person.picture" class="profile__picture" />
       <div class="profile__info">
-        <h2 class="profile__name">{{ user.person.name }}</h2>
+        <div class="profile__name-container">
+          <h2 class="profile__name">{{ user.person.name }}</h2>
+          <span v-if="user.person.verified" class="material-icons"
+            >verified_user</span
+          >
+        </div>
+
         <p class="profile__headline">{{ user.person.professionalHeadline }}</p>
         <p class="profile__location">{{ user.person.location.name }}</p>
         <p class="profile__bio">{{ user.person.summaryOfBio }}</p>
@@ -203,10 +209,17 @@ ul {
   margin: 0 auto;
 }
 
+.profile__name-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  gap: 8px;
+}
+
 .profile__name {
   font-size: 3.2rem;
   font-weight: bold;
-  margin-top: 16px;
 }
 
 .profile__headline {
