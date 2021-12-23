@@ -5,11 +5,12 @@
 <script>
 export default {
   name: "EditText",
+  data() {
+    return {
+      text: "",
+    }
+  },
   props: {
-    text: {
-      type: String,
-      required: true,
-    },
     placeholder: {
       type: String,
       required: false,
@@ -18,6 +19,7 @@ export default {
   },
   watch: {
     text(newText) {
+      console.log(newText)
       this.$emit("text-changed", newText)
     },
   },
@@ -31,7 +33,6 @@ input {
   border-radius: 5px;
   background-color: var(--secondary-color);
   color: var(--on-secondary);
-  cursor: pointer;
   border: 1px solid var(--secondary-color-light);
 }
 

@@ -1,7 +1,11 @@
 <template>
-  <div class="profile">
+  <div v-if="loading" class="loading-container">
+    <Loading :size="250" />
+  </div>
+  <div class="profile" v-else>
+    <Button @click="this.$router.back()"> Go back </Button>
     <div class="profile__header">
-      <ProfilePicture :img="user.person.picture" />
+      <ProfilePicture :img="user.person.picture" class="profile__picture" />
       <div class="profile__info">
         <h2 class="profile__name">{{ user.person.name }}</h2>
         <p class="profile__bio">{{ user.person.summaryOfBio }}</p>
@@ -76,7 +80,9 @@ a {
 import { useRoute } from "vue-router"
 import Skill from "../components/Skill.vue"
 import ProfilePicture from "../components/ProfilePicture.vue"
+import Button from "../components/Button.vue"
 import { getUserByUsername } from "../api"
+import Loading from "../components/Loading.vue"
 
 export default {
   name: "Profile",
@@ -90,19 +96,24 @@ export default {
         },
         strengths: [],
       },
+      loading: false,
     }
   },
 
   components: {
     Skill,
     ProfilePicture,
+    Button,
+    Loading,
   },
 
   created() {
     const route = useRoute()
+    this.loading = true
     getUserByUsername(route.params.username)
       .then((user) => {
         this.user = user
+        this.loading = false
       })
       .catch((error) => {
         console.log(error)
@@ -135,12 +146,25 @@ export default {
 </script>
 
 <style scoped>
+.loading-container {
+  display: grid;
+  place-items: center;
+}
+
 ul {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   gap: 12px;
 }
+
+.profile__header {
+  margin-top: 32px;
+}
+.profile__picture {
+  margin: 0 auto;
+}
+
 .profile__name {
   font-size: 3.2rem;
   font-weight: bold;
@@ -152,7 +176,7 @@ ul {
 }
 
 .profile__skills-title {
-  margin-top: 16px;
+  margin-top: 32px;
   font-size: 2.4rem;
 }
 
@@ -160,6 +184,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-top: 16px;
 }
 
 .profile__skills-category {

@@ -21,6 +21,7 @@ import Profile from "./screens/Profile.vue"
 html {
   font-size: 62.5%;
   --primary-color: #cddc39;
+  --primary-color-light: #d6e457;
   --on-primary: #000000de;
   --secondary-color: #383b40;
   --secondary-color-light: #ffffff8a;

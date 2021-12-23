@@ -9,10 +9,12 @@ async function getUserByUsername(username) {
   return response.data
 }
 
-async function searchPeople(payload) {
+async function searchPeople(payload, cancelToken) {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint
-  const response = await axios.post(url, payload)
+  const response = await axios.post(url, payload, {
+    cancelToken: cancelToken.token,
+  })
   return response.data
 }
 
