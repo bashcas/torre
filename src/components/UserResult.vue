@@ -48,6 +48,7 @@ export default {
 
 .container:hover {
   background-color: var(--secondary-color-light);
+  color: var(--on-primary);
 }
 
 .profile__picture {
@@ -61,6 +62,12 @@ export default {
 .profile__name {
   text-align: left;
   font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--primary-color);
+}
+
+.container:hover > .profile__info > .profile__name {
+  color: var(--primary-color-dark);
 }
 
 .profile__headline {

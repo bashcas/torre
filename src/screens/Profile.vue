@@ -195,6 +195,7 @@ ul {
 
 .profile__bio {
   margin-top: 16px;
+  color: var(--on-secondary-light);
 }
 
 .profile__skills-title {

@@ -128,7 +128,6 @@ export default {
       this.username = username
       const data = await getSkillDetail(username, id)
       this.skill = data
-      console.log(data.relatedExperiences)
     },
     async getUser() {
       const user = await getUserByUsername(this.username)

@@ -48,5 +48,6 @@ div {
 }
 div:hover {
   background-color: var(--secondary-color-light);
+  color: var(--on-primary);
 }
 </style>

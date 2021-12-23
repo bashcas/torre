@@ -22,6 +22,7 @@ html {
   font-size: 62.5%;
   --primary-color: #cddc39;
   --primary-color-light: #d6e457;
+  --primary-color-dark: #2e3505;
   --on-primary: #000000de;
   --secondary-color: #383b40;
   --secondary-color-light: #ffffff8a;

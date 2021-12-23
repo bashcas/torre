@@ -68,6 +68,7 @@ export default {
       error: null,
       //Cancel token is required as we are making multiple requests and this can lead to inconsistent results
       cancelToken: undefined,
+      search: "",
     }
   },
 
@@ -77,7 +78,7 @@ export default {
       if (typeof this.cancelToken != typeof undefined) {
         this.cancelToken.cancel("Operation canceled due to new requests.")
       }
-
+      this.search = query
       const payload = {
         name: {
           term: query,
@@ -104,15 +105,19 @@ export default {
     },
 
     async goToNextPage() {
-      console.log("Next page")
       if (!this.nextPage) {
-        console.log("No next page")
         return
+      }
+
+      const payload = {
+        name: {
+          term: this.search,
+        },
       }
 
       try {
         this.loading = true
-        const data = await getNextPage(this.nextPage)
+        const data = await getNextPage(payload, this.nextPage)
         this.updatePagination(
           data.results,
           data.pagination.previous,
@@ -127,14 +132,19 @@ export default {
     },
 
     async goToPreviousPage() {
-      console.log("Previous page")
       if (!this.previousPage) {
-        console.log("No previous page")
         return
       }
+
+      const payload = {
+        name: {
+          term: this.search,
+        },
+      }
+
       try {
         this.loading = true
-        const data = await getPreviousPage(this.previousPage)
+        const data = await getPreviousPage(payload, this.previousPage)
         this.updatePagination(
           data.results,
           data.pagination.previous,

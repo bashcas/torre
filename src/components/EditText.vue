@@ -19,7 +19,6 @@ export default {
   },
   watch: {
     text(newText) {
-      console.log(newText)
       this.$emit("text-changed", newText)
     },
   },
@@ -42,6 +41,6 @@ input:focus {
 }
 
 input::placeholder {
-  color: var(--on-secondary);
+  color: var(--on-secondary-light);
 }
 </style>
