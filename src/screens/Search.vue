@@ -1,9 +1,15 @@
 <template>
   <div>
-    <EditText
-      placeholder="Search people on Torre"
-      @text-changed="queryPeople($event)"
-    />
+    <div class="search-container">
+      <EditText
+        placeholder="Search people on Torre"
+        @text-changed="queryPeople($event)"
+      />
+      <Button v-if="loggedIn" class="button" @click="logout">Logout</Button>
+      <Button v-else class="button" @click="this.$router.push('/')"
+        >Login</Button
+      >
+    </div>
 
     <div class="search-results">
       <div v-if="loading" class="loading-container">
@@ -11,7 +17,7 @@
       </div>
 
       <div v-else-if="error">
-        <ErrorMessage :error="error" />
+        <div>Something happened</div>
       </div>
 
       <div v-else>
@@ -46,7 +52,6 @@
 <script>
 import EditText from "../components/EditText.vue"
 import Loading from "../components/Loading.vue"
-import ErrorMessage from "../components/ErrorMessage.vue"
 import UserResult from "../components/UserResult.vue"
 import Button from "../components/Button.vue"
 import { searchPeople, getNextPage, getPreviousPage } from "../api"
@@ -57,7 +62,6 @@ export default {
   components: {
     EditText,
     Loading,
-    ErrorMessage,
     UserResult,
     Button,
   },
@@ -75,6 +79,16 @@ export default {
       offset: 0,
       total: 0,
       size: 10,
+      ggid: undefined,
+      loggedIn: false,
+    }
+  },
+
+  created() {
+    const ggid = localStorage.getItem("ggid")
+    if (ggid) {
+      this.ggid = ggid
+      this.loggedIn = true
     }
   },
 
@@ -96,7 +110,12 @@ export default {
 
       try {
         this.loading = true
-        const data = await searchPeople(payload, this.cancelToken)
+        let data
+        if (this.ggid) {
+          data = await searchPeople(payload, this.cancelToken, this.ggid)
+        } else {
+          data = await searchPeople(payload, this.cancelToken)
+        }
         this.updatePagination(
           data.results,
           data.pagination.previous,
@@ -126,7 +145,12 @@ export default {
 
       try {
         this.loading = true
-        const data = await getNextPage(payload, this.nextPage)
+        let data
+        if (this.ggid) {
+          data = await getNextPage(payload, this.nextPage, this.ggid)
+        } else {
+          data = await getNextPage(payload, this.nextPage)
+        }
         this.updatePagination(
           data.results,
           data.pagination.previous,
@@ -156,7 +180,12 @@ export default {
 
       try {
         this.loading = true
-        const data = await getPreviousPage(payload, this.previousPage)
+        let data
+        if (this.ggid) {
+          data = await getPreviousPage(payload, this.previousPage, this.ggid)
+        } else {
+          data = await getPreviousPage(payload, this.previousPage)
+        }
         this.updatePagination(
           data.results,
           data.pagination.previous,
@@ -181,11 +210,22 @@ export default {
       this.size = size
       this.total = total
     },
+
+    logout() {
+      localStorage.removeItem("ggid")
+      this.$router.push("/")
+    },
   },
 }
 </script>
 
 <style scoped>
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
 .search-results {
   margin-top: 20px;
 }

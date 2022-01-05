@@ -29,6 +29,7 @@ html {
   --on-secondary: hsla(0, 0%, 100%, 0.9);
   --on-secondary-light: #ffffff99;
   --bg-color: #27292d;
+  --error-color: #d36060;
 }
 
 body {

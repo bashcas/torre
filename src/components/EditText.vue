@@ -28,7 +28,7 @@ export default {
 input {
   width: 100%;
   padding: 10px;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   border-radius: 5px;
   background-color: var(--secondary-color);
   color: var(--on-secondary);

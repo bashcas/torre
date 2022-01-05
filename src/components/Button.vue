@@ -21,8 +21,8 @@ button {
   color: var(--on-primary);
   border: none;
   border-radius: 5px;
-  padding: 10px;
-  font-size: 1.2em;
+  padding: 10px 20px;
+  font-size: 1.8rem;
   cursor: pointer;
   display: block;
   color: var(--primary-color);
