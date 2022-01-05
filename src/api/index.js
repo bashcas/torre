@@ -9,19 +9,28 @@ async function getUserByUsername(username) {
   return response.data
 }
 
-async function searchPeople(payload, cancelToken) {
+// ggid is necessary for more relevant results
+// default ggid is mine
+async function searchPeople(payload, cancelToken, ggid = "1239203") {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint
   const response = await axios.post(url, payload, {
     cancelToken: cancelToken?.token,
+    headers: {
+      "x-torre-ggid": ggid,
+    },
   })
   return response.data
 }
 
-async function getNextPage(payload, token) {
+async function getNextPage(payload, token, ggid = "1239203") {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint + "?after=" + token
-  const response = await axios.post(url, payload)
+  const response = await axios.post(url, payload, {
+    headers: {
+      "x-torre-ggid": ggid,
+    },
+  })
   return response.data
 }
 
