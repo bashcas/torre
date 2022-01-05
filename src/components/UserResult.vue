@@ -47,8 +47,7 @@ export default {
 }
 
 .container:hover {
-  background-color: var(--secondary-color-light);
-  color: var(--on-primary);
+  background-color: #8f8f8f8a;
 }
 
 .profile__picture {
@@ -61,17 +60,15 @@ export default {
 
 .profile__name {
   text-align: left;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 400;
-  color: var(--primary-color);
-}
-
-.container:hover > .profile__info > .profile__name {
-  color: var(--primary-color-dark);
+  color: var(--on-secondary-color);
 }
 
 .profile__headline {
+  margin-top: 2px;
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  color: var(--on-secondary-color-light);
 }
 </style>
