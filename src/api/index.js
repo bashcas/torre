@@ -2,6 +2,9 @@ import axios from "axios"
 
 const cors_proxy = "https://torre-proxy.vercel.app"
 
+// Sebastian Castañeda - GGID: 1239203
+const my_ggid = "1239203"
+
 async function getUserByUsername(username) {
   const api_endpoint = "https://bio.torre.co/api/bios/"
   const url = cors_proxy + "?url=" + api_endpoint + username
@@ -11,7 +14,7 @@ async function getUserByUsername(username) {
 
 // ggid is necessary for more relevant results
 // default ggid is mine
-async function searchPeople(payload, cancelToken, ggid = "1239203") {
+async function searchPeople(payload, cancelToken, ggid = my_ggid) {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint
   const response = await axios.post(url, payload, {
@@ -23,7 +26,7 @@ async function searchPeople(payload, cancelToken, ggid = "1239203") {
   return response.data
 }
 
-async function getNextPage(payload, token, ggid = "1239203") {
+async function getNextPage(payload, token, ggid = my_ggid) {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint + "?after=" + token
   const response = await axios.post(url, payload, {
@@ -34,10 +37,14 @@ async function getNextPage(payload, token, ggid = "1239203") {
   return response.data
 }
 
-async function getPreviousPage(token) {
+async function getPreviousPage(payload, token, ggid = my_ggid) {
   const api_endpoint = "https://search.torre.co/people/_search/"
   const url = cors_proxy + "?url=" + api_endpoint + "?before=" + token
-  const response = await axios.post(url)
+  const response = await axios.post(url, payload, {
+    headers: {
+      "x-torre-ggid": ggid,
+    },
+  })
   return response.data
 }
 
